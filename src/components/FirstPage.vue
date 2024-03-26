@@ -1,75 +1,59 @@
 <template>
   <div style="height: 100vh">
-    <b-row class="mx-0 p-3 position-relative" align-h="between" align-v="center">
+    <div style="z-index: 2" class="position-absolute w-100 p-3 d-flex justify-content-between">
       <h3 style="width: fit-content" class="fade cursive-name">Yacine Safsaf</h3>
-      <h5 class="fade" style="width: fit-content; z-index: 10">Contact</h5>
-      <div id="strokes-animation">
-        <div class="fade form p-0 m-0">
-          <svg width="1150" height="1080" xmlns="http://www.w3.org/2000/svg">
-            <g>
-              <path
-                class="animated-path path-1"
-                d="M1504.18 -270.715C1602.98 -74.7722 1395.69 229.04 1041.17 407.869C686.657 586.697 319.172 572.823 220.371 376.88C121.57 180.937 328.866 -122.875 683.38 -301.704C1037.89 -480.532 1405.38 -466.658 1504.18 -270.715"
-              />
-              <path
-                class="animated-path path-2"
-                d="M1901 660.349C1901 883.941 1579.13 1065.2 1182.08 1065.2C785.032 1065.2 463.161 883.941 463.161 660.349C463.161 436.757 785.032 255.499 1182.08 255.499"
-              />
-              <path
-                class="animated-path path-3"
-                d="M1308.44 -547.463C1407.24 -351.52 1199.95 -47.7078 845.432 131.121C490.918 309.949 123.433 296.076 24.6318 100.132C-74.1694 -95.8106 133.127 -399.623 487.641 -578.452C842.155 -757.28 1209.64 -743.406 1308.44 -547.463"
-              />
-              <path
-                class="animated-path path-4"
-                d="M1182.08 1225.33C1182.08 1497.97 941.353 1719 644.401 1719C347.449 1719 106.722 1497.97 106.722 1225.33C106.722 952.676 347.449 731.651 644.401 731.651C941.353 731.651 1182.08 952.676 1182.08 1225.33"
-              />
-            </g>
-          </svg>
-        </div>
-        <div class="fade form2 p-0 m-0">
-          <svg width="1150" height="1080" xmlns="http://www.w3.org/2000/svg">
-            <g>
-              <path
-                class="animated-path path-1"
-                d="M1504.18 -270.715C1602.98 -74.7722 1395.69 229.04 1041.17 407.869C686.657 586.697 319.172 572.823 220.371 376.88C121.57 180.937 328.866 -122.875 683.38 -301.704C1037.89 -480.532 1405.38 -466.658 1504.18 -270.715"
-              />
-              <path
-                class="animated-path path-2"
-                d="M1901 660.349C1901 883.941 1579.13 1065.2 1182.08 1065.2C785.032 1065.2 463.161 883.941 463.161 660.349C463.161 436.757 785.032 255.499 1182.08 255.499"
-              />
-              <path
-                class="animated-path path-3"
-                d="M1308.44 -547.463C1407.24 -351.52 1199.95 -47.7078 845.432 131.121C490.918 309.949 123.433 296.076 24.6318 100.132C-74.1694 -95.8106 133.127 -399.623 487.641 -578.452C842.155 -757.28 1209.64 -743.406 1308.44 -547.463"
-              />
-              <path
-                class="animated-path path-4"
-                d="M1182.08 1225.33C1182.08 1497.97 941.353 1719 644.401 1719C347.449 1719 106.722 1497.97 106.722 1225.33C106.722 952.676 347.449 731.651 644.401 731.651C941.353 731.651 1182.08 952.676 1182.08 1225.33"
-              />
-            </g>
-          </svg>
-        </div>
+      <div class="d-flex">
+        <img
+          :class="`${isFrench ? '' : 'selectedLang'} mx-1 flag`"
+          @click="onUkClick"
+          :src="require(`@/assets/uk-flag.svg`)"
+          alt="uk flag"
+        />
+        <img
+          :class="`${isFrench ? 'selectedLang' : ''} mx-1 flag`"
+          @click="onFrClick"
+          :src="require(`@/assets/fr-flag.svg`)"
+          alt="fr flag"
+        />
       </div>
-    </b-row>
-    <b-row class="mx-0 pt-3" style="z-index: 100">
-      <b-col class="px-0" cols="6">
-        <div style="padding-top: 15rem; padding-left: 6rem">
-          <div class="slide-down" style="font-size: 3rem; line-height: 1.2em; font-weight: 600">
-            Hello! <br />
-            I am Yacine Safsaf <br />
-            A Front-end Developer
+    </div>
+    <b-row class="mx-0 pt-3 justify-content-center justify-content-lg-start">
+      <b-col class="px-0 position-relative" cols="11" md="10" lg="8" xl="6">
+        <div
+          :style="`padding-top: ${breakpoints.up.lg ? '15rem' : '20rem'} ; padding-left: ${
+            breakpoints.up.lg ? '6rem' : 'unset'
+          }; position: absolute; z-index: 2;`"
+        >
+          <div
+            class="slide-down-eased"
+            :style="`font-size: ${breakpoints.up.lg ? '3rem' : '2rem'} ; line-height: 1.2em; font-weight: 600`"
+          >
+            {{ isFrench ? "Bonjour" : "Hello" }}! <br />
+            {{ isFrench ? "Je suis" : "I am" }} Yacine Safsaf <br />
+            {{ isFrench ? "Un Développeur Front-end" : "A Front-end Developer" }}
           </div>
-          <b-row class="slide-down-delayed mx-0 pt-3">
-            <b-col cols="10" class="px-0">
+          <b-row
+            class="slide-down-eased mx-0 pt-3"
+            style="opacity: 0; animation-delay: 0.5s; animation-fill-mode: forwards"
+          >
+            <b-col cols="11" class="px-0">
               <div style="color: #a9a9a9">
-                Visually appealing websites are my passion as a Front-end developer. I am a collaborative team player who
-                stays up-to-date with industry trends and is eager to learn. Ready to work on impactful projects and
-                grow my front-end development career.
+                {{
+                  isFrench
+                    ? `Les sites Web attrayants sont ma passion en tant que développeur Front-end. 
+                        Je suis un joueur d'équipe collaboratif qui reste à jour avec les nouvelles technologiques. 
+                        J'ai hâte d'apprendre de nouvelles choses! Je suis prêt à travailler sur des projets impactant et 
+                        développer ma carrière de développeur Web`
+                    : `Visually appealing websites are my passion as a Front-end developer. 
+                        I am a collaborative team player who stays up-to-date with the tech industry and I am eager to learn new things. 
+                        I am Ready to work on impactful projects and grow my Web development career`
+                }}
               </div>
             </b-col>
           </b-row>
         </div>
       </b-col>
-      <b-col id="firstHalfWindowSpheres" style="height: calc(100vh - 90px); position: relative" cols="6"> </b-col>
+      <b-col id="firstWindowShape" style="height: calc(100vh - 90px); position: relative" lg="12"> </b-col>
     </b-row>
   </div>
 </template>
@@ -77,67 +61,101 @@
 <script>
 export default {
   name: "LandingPage",
+  props: {
+    breakpoints: Object,
+    isFrench: Boolean,
+  },
   methods: {
-    randomExpandingSpheres() {
-      let spheres = Array.from(document.querySelectorAll(".sphere"));
-      if (spheres)
-        spheres.forEach((sphere) => {
-          let scaleValue = (Math.random() * 2).toFixed(2);
-          sphere.style.transform = `scale3d(${scaleValue}, ${scaleValue}, ${scaleValue})`;
-        });
-    },
-    generateSphereCoordinates() {
-      let ColHeight = document.getElementById("firstHalfWindowSpheres").clientHeight;
-      let ColWidth = document.getElementById("firstHalfWindowSpheres").clientWidth;
+    generateShapeCoordinates() {
+      let ColHeight = document.getElementById("firstWindowShape").clientHeight;
+      let ColWidth = document.getElementById("firstWindowShape").clientWidth;
       return {
         topPosition: Math.floor(Math.random() * ColHeight),
         leftPosition: Math.floor(Math.random() * ColWidth),
       };
     },
-    generateSphere() {
-      const colors = ["#ffc312", "#3f3d56", "#A9A9A9"];
-      const sphereSizes = ["small", "medium", "small-medium", "big"];
-      let randomColor = colors[Math.floor(Math.random() * colors.length)];
-      let randomSphereSize = sphereSizes[Math.floor(Math.random() * sphereSizes.length)];
-      const { topPosition, leftPosition } = this.generateSphereCoordinates();
-      const col = document.getElementById("firstHalfWindowSpheres");
-      let sphere = document.createElement("div");
-      col.append(sphere);
-      sphere.classList.add("sphere", `sphere-${randomSphereSize}`, "expandAnimation");
-      let sphereHeight = sphere.clientHeight;
-      let sphereWidth = sphere.clientWidth;
-      sphere.style.cssText = `
-        position: absolute; 
-        top: ${topPosition - sphereHeight / 2}px; 
-        left: ${leftPosition - sphereWidth / 2}px; 
-        background-color: ${randomColor}`;
-      setTimeout(() => {
-        sphere.classList.remove("expandAnimation");
-        sphere.classList.add("shrinkAnimation");
-      }, 8000);
-      setTimeout(() => {
-        sphere.remove();
-      }, 11000);
-    },
-    generateSphereBatch() {
-      for (const i of [1, 2, 3]) {
-        setTimeout(() => {
-          this.generateSphere();
-        }, i * 500);
+    generateShapeStyle(color, size, shape, borderOnly) {
+      switch (shape) {
+        case "sphere":
+          if (borderOnly) {
+            return `
+              border-radius: 100%;
+              border: ${this.breakpoints.down.md ? 1 : 3}px solid ${color};
+              height: ${size}px;
+              width: ${size}px;`;
+          } else {
+            return `border-radius: 100%; background-color: ${color}; height: ${size}px; width: ${size}px;`;
+          }
+
+        case "square":
+          if (borderOnly) {
+            return `border: ${this.breakpoints.down.md ? 1 : 3}px solid ${color}; height: ${size}px; width: ${size}px;`;
+          } else {
+            return `background-color: ${color};height: ${size}px; width: ${size}px;`;
+          }
+
+        case "triangle":
+          return `
+              border-style: solid;
+              border-color: transparent;
+              border-width: 0px ${size * 0.6}px ${size}px ${size * 0.6}px;
+              border-bottom-color: ${color};`;
       }
     },
-    generateMultipleSpheres() {
-      this.generateSphereBatch();
+    generateShape() {
+      const colors = ["#ffc312", "#001f3f", "#FFB6B6"];
+      const shapeSizes = ["small", "medium", "small-medium", "big"];
+      const shapes = ["square", "triangle", "sphere"];
+      let randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+      let randomColor = colors[Math.floor(Math.random() * colors.length)];
+      let borderOnly = Math.floor(Math.random() * 2);
+      let randomShapeSize = shapeSizes[Math.floor(Math.random() * shapeSizes.length)];
+      const { topPosition, leftPosition } = this.generateShapeCoordinates();
+      const col = document.getElementById("firstWindowShape");
+      let shape = document.createElement("div");
+      let wrapper = document.createElement("div");
+      col.append(wrapper);
+      wrapper.append(shape);
+      wrapper.classList.add("expandAnimation");
+      shape.classList.add(`shape-${randomShapeSize}${this.breakpoints.down.md ? "-mobile" : ""}`, "rotate");
+      let shapeSize = shape.clientHeight;
+      const randomShapeStyle = this.generateShapeStyle(randomColor, shapeSize, randomShape, borderOnly);
+      shape.style.cssText = `${randomShapeStyle};`;
+      wrapper.style.cssText = `
+        position: absolute;
+        z-index: 1;
+        top: ${topPosition - shapeSize / 2}px;
+        left: ${leftPosition - shapeSize / 2}px;`;
+      setTimeout(() => {
+        wrapper.classList.remove("expandAnimation");
+        wrapper.classList.add("shrinkAnimation");
+      }, 8000);
+      setTimeout(() => {
+        wrapper.remove();
+      }, 11000);
+    },
+    generateShapeBatch() {
+      for (const i of [1, 2, 3, 4]) {
+        setTimeout(() => {
+          this.generateShape();
+        }, i * 700);
+      }
+    },
+    generateMultipleShapes() {
+      this.generateShapeBatch();
       setInterval(() => {
-        this.generateSphereBatch();
+        this.generateShapeBatch();
       }, 6000);
+    },
+    onUkClick() {
+      this.$emit("onUkClick", false);
+    },
+    onFrClick() {
+      this.$emit("onFrClick", true);
     },
   },
   mounted() {
-    this.generateMultipleSpheres();
-    window.addEventListener("scroll", function () {
-      console.log(this.window);
-    });
+    this.generateMultipleShapes();
   },
 };
 </script>
@@ -148,69 +166,13 @@ export default {
   font-family: "Rancho", cursive;
   z-index: 1;
 }
-
-.form {
-  height: 100vh;
-  width: auto;
-  position: absolute;
-  top: 0;
-  right: 0%;
+.flag {
+  height: auto;
+  width: 24px;
+  cursor: pointer;
+  opacity: 0.6;
 }
-.form2 {
-  height: 100vh;
-  width: auto;
-  position: absolute;
-  top: 0;
-  right: 0%;
-  transform: rotate3d(1, 1, 1, 180deg);
-}
-
-.filler {
-  height: 100vh;
-  width: 200px;
-  background-color: #ffc312;
-  position: absolute;
-  top: 0;
-  right: 0%;
-}
-.animated-path {
-  fill: none;
-  stroke: #ffc312;
-  stroke-width: 5;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 2000;
-  animation: fillAnimation 5s ease-in-out infinite forwards;
-}
-
-@keyframes fillAnimation {
-  from {
-    stroke-dashoffset: 2000;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.path-1 {
-  animation-delay: 0s;
-}
-
-.path-2 {
-  animation-delay: 0.5s;
-}
-
-.path-3 {
-  animation-delay: 1s;
-}
-
-.path-4 {
-  animation-delay: 1.5s;
-}
-.programmer {
-  height: 650px;
-  width: 100%;
-  z-index: 10;
-  top: calc(50% + 100px);
-  animation: 9s 1s float ease-in-out infinite, slideDown ease 1s, 1s fadeIn ease;
+.selectedLang {
+  opacity: 1;
 }
 </style>

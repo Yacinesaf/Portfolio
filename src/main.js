@@ -11,6 +11,10 @@ Vue.use(BootstrapVue)
 
 Vue.use(BootstrapVueIcons)
 
+Vue.use(BootstrapVue, {
+  breakpoints: [`xs`, 'sm', 'md', 'lg', 'xl', 'xxl']
+})
+
 Vue.config.productionTip = false
 
 new Vue({

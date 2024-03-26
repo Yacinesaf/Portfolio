@@ -1,46 +1,96 @@
 <template>
-  <div style="height: 100vh">
-    <b-row class="mx-0" style="padding-top: 3rem; padding-left: 6rem">
-      <b-col class="px-0" cols="4">
-        <h2 style="font-weight: 600">My projects</h2>
-      </b-col>
-      <b-col class="px-0" cols="2">
-        <div class="sphere-small-medium" style="background-color: #ffc312"></div>
-      </b-col>
-    </b-row>
-    <div>
-      <div class="sphere-small-medium position-absolute" style="background-color: #3f3d56; left: -2.5%"></div>
-      <div class="sphere-small position-absolute" style="background-color: #ffc312; right: 6%"></div>
+  <b-row align-h="center" align-v="center">
+    <div class="position-relative d-flex justify-content-center pb-4">
+      <h1 id="h1-projects-title" class="projects-title position-absolute" style="font-weight: 600">
+        {{ isFrench ? "Projets" : "Projects" }}
+      </h1>
     </div>
-    <b-row align-v="start" class="mx-0" style="padding-top: 2rem; padding: 2rem 7rem 0rem 6rem">
-      <b-col class="px-0 pt-4" cols="4">
-        <h2>
-          Project.title
-          <!-- {{project.title}} -->
-        </h2>
-        <h5 class="pt-3">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit finibus volutpat. Donec at tempus ante,
-          eu consequat enim. Nunc vel lorem et dolor porta laoreet. Class aptent taciti sociosqu ad litora torquent per
-          conubia nostra, per inceptos himenaeos. Etiam sit amet vestibulum purus. Pellentesque mauris augue, suscipit
-          ac nibh rhoncus, porta molestie tortor. In mattis arcu justo, id gravida leo accumsan nec. Phasellus suscipit
-          tempor egestas.
-          <!-- {{project.description}} -->
-        </h5>
-      </b-col>
-      <b-col cols="7" class="d-flex justify-content-end">
-        <div class="projects-circle d-flex justify-content-center align-items-center">
-          <div class="project-border">
-            <img
-              style="height: -webkit-fill-available; width: -webkit-fill-available"
-              src="@/assets/sareta.jpg"
-              alt=""
-            />
-          </div>
-        </div>
-      </b-col>
-    </b-row>
-  </div>
+    <b-col cols="11" md="10" lg="8" xl="5" class="pt-5">
+      <b-row id="projects">
+        <b-col cols="12" md="4" v-for="(project, i) in projects" :key="i">
+          <project-card :project="project" :breakpoints="breakpoints" />
+        </b-col>
+      </b-row>
+    </b-col>
+  </b-row>
 </template>
+<script>
+import ProjectCard from "./ProjectCard.vue";
+export default {
+  components: { ProjectCard },
+  props: {
+    breakpoints: Object,
+    isFrench: Boolean,
+  },
+  computed: {
+    projects() {
+      return [
+        {
+          icon: "wallet.svg",
+          background: "yellowRect.png",
+          link: "https://sareta-f8acd.web.app/",
+          description: this.isFrench
+            ? "Application de gestion de budget qui facilite le calcul de votre salaire nécessaire et le suivi de vos dépenses"
+            : "Small Budget management app that makes calculating your needed salary and tracking your expenses easier",
+          delay: 0.3,
+          title: "Sareta",
+          icons: ["vue-icon.svg", "vuetify-icon.svg", "css3-icon.svg", "html-icon.svg"],
+        },
+        {
+          icon: "book.svg",
+          background: "pinkRect.png",
+          link: "https://sliceoflife-5bdf4.firebaseapp.com/",
+          description: this.isFrench
+            ? "Une application web qui permet de créer des pages et d'écrire votre quotidien comme un journal intime"
+            : "A web app that lets create pages and write your daily life just like a diary",
+          delay: 0.6,
+          title: "Slice Of Life",
+          icons: ["react-icon.svg", "material-ui-icon.svg", "css3-icon.svg", "html-icon.svg"],
+        },
+        {
+          icon: "popcorn.svg",
+          background: "blueRect.png",
+          link: "https://sukinaanime-5f246.web.app/",
+          description: this.isFrench
+            ? "Bibliothèque d'anime où vous pouvez parcourir différentes émissions et voir leurs détails"
+            : "Anime library where you can browse different shows and see their details",
+          delay: 0.9,
+          title: "Sukina",
+          icons: ["react-icon.svg", "bootstrap-icon.svg", "css3-icon.svg", "html-icon.svg"],
+        },
+      ];
+    },
+  },
+  methods: {
+    isElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    },
+    handleScroll(targetElement) {
+      if (this.isElementInViewport(targetElement)) {
+        document.getElementById("h1-projects-title").classList.add("slide-down");
+        Array.from(document.getElementsByClassName("project-card")).forEach((el) => {
+          el.classList.add("slide-down");
+        });
+      }
+    },
+  },
+  mounted() {
+    let targetElement = document.getElementById("projects");
+    window.addEventListener("scroll", () => {
+      this.handleScroll(targetElement);
+    });
+
+    // Call handleScroll initially to check if the element is already in the viewport on page load
+    this.handleScroll(targetElement);
+  },
+};
+</script>
 
 <style scoped>
 .projects-circle {
@@ -55,5 +105,8 @@
   border: 10px solid #3f3d56;
   position: absolute;
   border-radius: 15px;
+}
+.projects-title {
+  opacity: 0;
 }
 </style>
