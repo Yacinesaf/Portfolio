@@ -1,5 +1,8 @@
 <template>
-  <div class="app position-relative">
+  <div
+    :style="`background-color: ${isDarkMode ? '#1e1e1e' : '#f9f9f9'}; transition: ease-in-out 0.5s`"
+    class="app position-relative"
+  >
     <div id="strokes-animation">
       <div class="fade form p-0 m-0">
         <svg width="1150" height="160vh" xmlns="http://www.w3.org/2000/svg">
@@ -26,14 +29,19 @@
     </div>
     <FirstPage
       :isFrench="isFrench"
+      :isDarkMode="isDarkMode"
       @onUkClick="selectLanguage"
+      @onChangeColorMode="changeColorMode"
       @onFrClick="selectLanguage"
       :breakpoints="breakpoints.screen"
     />
-    <SecondPage :isFrench="isFrench" :breakpoints="breakpoints.screen" />
-    <PageFooter :isFrench="isFrench" />
+    <SecondPage :isFrench="isFrench" :isDarkMode="isDarkMode" :breakpoints="breakpoints.screen" />
+    <PageFooter :isFrench="isFrench" :isDarkMode="isDarkMode" />
     <div class="pt-4">
-      <div class="position-absolute" style="font-size: 10px; bottom: 4px; left: calc(50% - 126px)">
+      <div
+        :style="`color: ${isDarkMode ? '#fff' : 'black'}; font-size: 10px; bottom: 4px; left: calc(50% - 126px)`"
+        class="position-absolute"
+      >
         Copyright © {{ date }} Yacine Safsaf. All rights reserved.
       </div>
     </div>
@@ -42,9 +50,9 @@
 
 <script>
 import FirstPage from "./components/FirstPage.vue";
-import SecondPage from "./components/SecondPage.vue";
 import PageFooter from "./components/PageFooter.vue";
-import { onResize, breakpoints } from "./utils/breakpoints";
+import SecondPage from "./components/SecondPage.vue";
+import { breakpoints, onResize } from "./utils/breakpoints";
 
 export default {
   name: "App",
@@ -56,6 +64,7 @@ export default {
   data() {
     return {
       isFrench: false,
+      isDarkMode: false,
     };
   },
   computed: {
@@ -67,6 +76,9 @@ export default {
     },
   },
   methods: {
+    changeColorMode() {
+      this.isDarkMode = !this.isDarkMode;
+    },
     selectLanguage(val) {
       this.isFrench = val;
     },
@@ -82,7 +94,6 @@ export default {
 
 .app {
   min-height: 100vh;
-  background-color: #f9f9f9;
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
 }

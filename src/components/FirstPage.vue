@@ -1,20 +1,30 @@
 <template>
   <div style="height: 100vh">
     <div style="z-index: 2" class="position-absolute w-100 p-3 d-flex justify-content-between">
-      <h3 style="width: fit-content" class="fade cursive-name">Yacine Safsaf</h3>
+      <h3 :style="`color: ${isDarkMode ? '#fff' : 'black'}`" class="fade cursive-name">Yacine Safsaf</h3>
       <div class="d-flex">
-        <img
-          :class="`${isFrench ? '' : 'selectedLang'} mx-1 flag`"
-          @click="onUkClick"
-          :src="require(`@/assets/uk-flag.svg`)"
-          alt="uk flag"
-        />
-        <img
-          :class="`${isFrench ? 'selectedLang' : ''} mx-1 flag`"
-          @click="onFrClick"
-          :src="require(`@/assets/fr-flag.svg`)"
-          alt="fr flag"
-        />
+        <div class="color-mode-btn" style="margin-right: 8px" @click="changeColorMode">
+          <b-icon-sun
+            v-if="isDarkMode"
+            :style="`color: ${isDarkMode ? '#fff' : 'black'}`"
+            font-scale="1.2"
+          ></b-icon-sun>
+          <b-icon-moon v-else :style="`color: ${isDarkMode ? '#fff' : 'black'}`" font-scale="1.2"></b-icon-moon>
+        </div>
+        <div id="language-switch" class="d-flex">
+          <img
+            :class="`${isFrench ? '' : 'selectedLang'} mx-1 flag`"
+            @click="onUkClick"
+            :src="require(`@/assets/en-flag.svg`)"
+            alt="en flag"
+          />
+          <img
+            :class="`${isFrench ? 'selectedLang' : ''} mx-1 flag`"
+            @click="onFrClick"
+            :src="require(`@/assets/fr-flag.svg`)"
+            alt="fr flag"
+          />
+        </div>
       </div>
     </div>
     <b-row class="mx-0 pt-3 justify-content-center justify-content-lg-start">
@@ -26,7 +36,9 @@
         >
           <div
             class="slide-down-eased"
-            :style="`font-size: ${breakpoints.up.lg ? '3rem' : '2rem'} ; line-height: 1.2em; font-weight: 600`"
+            :style="`font-size: ${breakpoints.up.lg ? '3rem' : '2rem'} ; line-height: 1.2em; font-weight: 600; color: ${
+              isDarkMode ? '#fff' : 'black'
+            }; transition: ease-in-out 0.5s`"
           >
             {{ isFrench ? "Bonjour" : "Hello" }}! <br />
             {{ isFrench ? "Je suis" : "I am" }} Yacine Safsaf <br />
@@ -37,7 +49,7 @@
             style="opacity: 0; animation-delay: 0.5s; animation-fill-mode: forwards"
           >
             <b-col cols="11" class="px-0">
-              <div style="color: #a9a9a9">
+              <div :style="`color: ${isDarkMode ? '#B0B0B0' : '#a9a9a9'};`">
                 {{
                   isFrench
                     ? `Les sites Web attrayants sont ma passion en tant que développeur Front-end. 
@@ -64,6 +76,7 @@ export default {
   props: {
     breakpoints: Object,
     isFrench: Boolean,
+    isDarkMode: Boolean,
   },
   methods: {
     generateShapeCoordinates() {
@@ -153,6 +166,9 @@ export default {
     onFrClick() {
       this.$emit("onFrClick", true);
     },
+    changeColorMode() {
+      this.$emit("onChangeColorMode");
+    },
   },
   mounted() {
     this.generateMultipleShapes();
@@ -162,10 +178,27 @@ export default {
 
 <style scoped>
 .cursive-name {
-  color: black;
   font-family: "Rancho", cursive;
+  width: fit-content;
   z-index: 1;
 }
+
+.color-mode-btn {
+  cursor: pointer;
+  background-position: center;
+  transition: background ease-in-out 1.2s;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.color-mode-btn:active {
+  background-color: #8f8f8f;
+  background-size: 100%;
+  transition: background ease-in-out 0s;
+}
+
 .flag {
   height: auto;
   width: 24px;

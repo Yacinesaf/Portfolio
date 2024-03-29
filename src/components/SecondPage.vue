@@ -1,7 +1,11 @@
 <template>
   <b-row align-h="center" align-v="center">
     <div class="position-relative d-flex justify-content-center pb-4">
-      <h1 id="h1-projects-title" class="projects-title position-absolute" style="font-weight: 600">
+      <h1
+        id="h1-projects-title"
+        class="projects-title position-absolute"
+        :style="`color: ${isDarkMode ? '#fff' : 'black'}; font-weight: 600`"
+      >
         {{ isFrench ? "Projets" : "Projects" }}
       </h1>
     </div>
@@ -21,13 +25,16 @@ export default {
   props: {
     breakpoints: Object,
     isFrench: Boolean,
+    isDarkMode: Boolean,
   },
   computed: {
     projects() {
+      const colors = ["yellowRect.png", "blueRect.png", "pinkRect.png"];
+      let randomColor = colors[Math.floor(Math.random() * 3)];
       return [
         {
           icon: "wallet.svg",
-          background: "yellowRect.png",
+          background: randomColor,
           link: "https://sareta-f8acd.web.app/",
           description: this.isFrench
             ? "Application de gestion de budget qui facilite le calcul de votre salaire nécessaire et le suivi de vos dépenses"
@@ -38,7 +45,7 @@ export default {
         },
         {
           icon: "book.svg",
-          background: "pinkRect.png",
+          background: randomColor,
           link: "https://sliceoflife-5bdf4.firebaseapp.com/",
           description: this.isFrench
             ? "Une application web qui permet de créer des pages et d'écrire votre quotidien comme un journal intime"
@@ -49,7 +56,7 @@ export default {
         },
         {
           icon: "popcorn.svg",
-          background: "blueRect.png",
+          background: randomColor,
           link: "https://sukinaanime-5f246.web.app/",
           description: this.isFrench
             ? "Bibliothèque d'anime où vous pouvez parcourir différentes émissions et voir leurs détails"
@@ -86,7 +93,6 @@ export default {
       this.handleScroll(targetElement);
     });
 
-    // Call handleScroll initially to check if the element is already in the viewport on page load
     this.handleScroll(targetElement);
   },
 };

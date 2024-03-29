@@ -8,13 +8,13 @@
         <div>
           <h4 class="title">{{ project.title }}</h4>
         </div>
-        <img :src="require(`@/assets/${project.icon}`)" width="auto" height="120px" alt="Project icon" />
+        <img :src="require(`@/assets/${project.icon}`)" width="auto" height="80px" alt="Project icon" />
         <div class="d-flex justify-content-center">
           <img
             v-for="(icon, i) in project.icons"
             :key="i"
-            height="24px"
-            width="24px"
+            height="18px"
+            width="18px"
             class="m-2"
             :src="require(`@/assets/${icon}`)"
             alt="Technology used icon"
